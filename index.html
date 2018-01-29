@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="resources/katex.min.css">
     <link rel="stylesheet" href="resources/quill.snow.css">
 
+    <script src="resources/promise.min.js"></script>
+    <!-- <script src="resources/pdftex.js"></script> -->
+    <script src="resources/katex.min.js"></script>
+    <script src="resources/delta2tex.min.js"></script>
+    <script src="resources/quill.js"></script>
+
     <style>
       .standalone-container {
         margin: 50px auto;
@@ -33,11 +39,35 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <script src="resources/katex.min.js"></script>
-    <script src="resources/delta2tex.min.js"></script>
-    <script src="resources/quill.js"></script>
-    <script src="resources/quill.js"></script>
     <script src="index.js"></script>
+ <!--    <script>
+
+      function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', text);
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
+        var pdftex = new PDFTeX("pdftex-worker.js");
+        var latex_code = "" + 
+          "\\documentclass{article}" + 
+          "\\begin{document}" + 
+          "\\LaTeX is great!" + 
+          "$E = mc^2$" + 
+          "\\end{document}"; 
+
+        pdftex.compile(latex_code).then(function(pdf) {
+          download("test.pdf", pdf);
+        });
+     
+    </script> -->
     
   </body>
 </html>

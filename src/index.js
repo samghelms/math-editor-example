@@ -1,3 +1,5 @@
+import PDFTeX from './pdftex'
+
 let delta2tex = require("../resources/delta2tex.min.js")
 let Formula = Quill.import('formats/formula');
 
@@ -87,24 +89,50 @@ customButton.addEventListener('click', function() {
 
 });
 
+// function download(filename, text) {
+//     var element = document.createElement('a');
+//     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+//     element.setAttribute('download', filename);
+
+//     element.style.display = 'none';
+//     document.body.appendChild(element);
+
+//     element.click();
+
+//     document.body.removeChild(element);
+// }
+
 function download(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
+        var element = document.createElement('a');
+        element.setAttribute('href', text);
+        element.setAttribute('download', filename);
 
-    element.style.display = 'none';
-    document.body.appendChild(element);
+        element.style.display = 'none';
+        document.body.appendChild(element);
 
-    element.click();
+        element.click();
 
-    document.body.removeChild(element);
+        document.body.removeChild(element);
 }
 
 function exportEditor() {
   var delta = quill.getContents();
   console.log(delta)
   const tex = delta2tex.parse(delta)
-  download("example.tex", tex)
+
+  var pdftex = new PDFTeX("pdftex-worker.js");
+  // var latex_code = "" + 
+  //   "\\documentclass{article}" + 
+  //   "\\begin{document}" + 
+  //   "\\LaTeX is great!" + 
+  //   "$E = mc^2$" + 
+  //   "\\end{document}"; 
+
+  pdftex.compile(tex).then(function(pdf) {
+    download("example.pdf", pdf);
+  });
+
+  // download("example.tex", tex)
 }
 
 toolbar.addHandler('export', ()=> "test");
